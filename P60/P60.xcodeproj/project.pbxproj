@@ -14,6 +14,7 @@
 		8DEAA88C2066770A0068F233 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEAA88B2066770A0068F233 /* BaseViewController.swift */; };
 		8DEAA88E206678F60068F233 /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEAA88D206678F60068F233 /* BaseTabBarController.swift */; };
 		8DEAA890206679740068F233 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEAA88F206679740068F233 /* BaseNavigationController.swift */; };
+		95C7729E1C2D047AD25AA266 /* MainContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C773A898EE6078D1B7199E /* MainContentViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		8DEAA88B2066770A0068F233 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		8DEAA88D206678F60068F233 /* BaseTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
 		8DEAA88F206679740068F233 /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
+		95C773A898EE6078D1B7199E /* MainContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainContentViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 		8DEAA88A206676430068F233 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				95C773A898EE6078D1B7199E /* MainContentViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -178,6 +181,7 @@
 				8DEAA876206664400068F233 /* AppDelegate.swift in Sources */,
 				8DEAA88C2066770A0068F233 /* BaseViewController.swift in Sources */,
 				8DEAA88E206678F60068F233 /* BaseTabBarController.swift in Sources */,
+				95C7729E1C2D047AD25AA266 /* MainContentViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
