@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -15,13 +16,33 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="Iu4-MD-d36" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="GqL-TF-qax">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
+                    <connections>
+                        <segue destination="T7L-s0-sgK" kind="relationship" relationship="viewControllers" id="DIo-di-WHK"/>
+                    </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cag-Re-fQm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="207" y="133"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="RWC-pW-jrr">
+            <objects>
+                <viewController id="T7L-s0-sgK" customClass="MainContentViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0BL-E9-W6F">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="unv-09-L3M"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="80e-ZP-6bR"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zcS-kb-S7B" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1154" y="133"/>
         </scene>
     </scenes>
 </document>
