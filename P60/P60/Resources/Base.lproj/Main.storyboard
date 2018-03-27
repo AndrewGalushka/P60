@@ -31,7 +31,7 @@
         <!--Main Content View Controller-->
         <scene sceneID="RWC-pW-jrr">
             <objects>
-                <viewController id="T7L-s0-sgK" customClass="MainContentViewController" sceneMemberID="viewController">
+                <viewController id="T7L-s0-sgK" customClass="MainContentViewController" customModule="P60" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0BL-E9-W6F">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -44,7 +44,7 @@
                                 </constraints>
                                 <state key="normal" title="Take Photo"/>
                                 <connections>
-                                    <action selector="takePhotoButtonTouchUpInsideActionHander:" destination="T7L-s0-sgK" eventType="touchUpInside" id="8JF-sw-KeS"/>
+                                    <action selector="takePhotoButtonTouchUpInside:" destination="T7L-s0-sgK" eventType="touchUpInside" id="sea-xJ-dYJ"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -58,12 +58,12 @@
                     </view>
                     <navigationItem key="navigationItem" id="Tfg-mA-N2y"/>
                     <connections>
-                        <outlet property="takePhotoButton" destination="5dR-mc-rtK" id="fav-rL-YvZ"/>
+                        <outlet property="takePhotoButton" destination="5dR-mc-rtK" id="MsO-8Q-xEC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zcS-kb-S7B" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1940" y="133"/>
+            <point key="canvasLocation" x="1993" y="133"/>
         </scene>
         <!--Item-->
         <scene sceneID="1nZ-Lo-aZi">
@@ -82,7 +82,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="voh-ez-1Ex" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1122" y="133"/>
+            <point key="canvasLocation" x="1153" y="133"/>
         </scene>
     </scenes>
 </document>
