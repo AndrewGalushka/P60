@@ -21,7 +21,6 @@ class ApplicationCoordinator: Coordinator {
     }
 
     func start() {
-
         let mainStoryBoard = UIStoryboard.init(.main)
 
         let mainContentViewController: MainContentViewController = mainStoryBoard.instantiateViewController()
