@@ -27,14 +27,9 @@ class ApplicationCoordinator: Coordinator {
         let mainContentViewController: MainContentViewController = mainStoryBoard.instantiateViewController()
         let settingsViewController: SettingsViewController = mainStoryBoard.instantiateViewController()
 
-        let mainContentViewControllerTabBarItem = UITabBarItem(title: "Main", image: nil, selectedImage: nil)
-        mainContentViewControllerTabBarItem.badgeValue = String(0)
-        mainContentViewControllerTabBarItem.badgeColor = .randomColor
-
-        let settingsViewControllerTabBarItem = UITabBarItem(title: "Settings", image: nil, selectedImage: nil)
-        settingsViewControllerTabBarItem.badgeValue = String(2)
-        settingsViewControllerTabBarItem.badgeColor = .randomColor
-
+        let mainContentViewControllerTabBarItem = UITabBarItem(title: nil, image: UIImage(named: "TabBarCameraIcon"), selectedImage: nil)
+        let settingsViewControllerTabBarItem = UITabBarItem(title: nil, image: UIImage(named: "TabBarSettingsIcon"), selectedImage: nil)
+        
         mainContentViewController.tabBarItem = mainContentViewControllerTabBarItem
         settingsViewController.tabBarItem = settingsViewControllerTabBarItem
 
