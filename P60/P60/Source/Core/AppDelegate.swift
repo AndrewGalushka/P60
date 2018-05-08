@@ -12,9 +12,19 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var applicationCoordinator: Coordinator?
 
-    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        
+        guard let window = window else {
+            fatalError("Window cannot be nil")
+        }
+
+        applicationCoordinator = ApplicationCoordinator(window: window)
+        applicationCoordinator?.start()
+
         return true
     }
 

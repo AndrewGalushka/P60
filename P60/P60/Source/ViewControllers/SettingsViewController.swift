@@ -14,3 +14,5 @@ class SettingsViewController: BaseViewController {
         super.viewDidLoad()
     }
 }
+
+extension SettingsViewController: Identifiable {}

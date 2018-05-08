@@ -8,8 +8,7 @@
 
 import UIKit
 
-class MainContentViewController: BaseViewController {
-    
+class MainContentViewController: BaseViewController{
 
     @IBOutlet weak var takePhotoButton: UIButton!
     
@@ -29,3 +28,5 @@ extension MainContentViewController {
         self.takePhotoButton.layer.cornerRadius = 10.0
     }
 }
+
+extension MainContentViewController: Identifiable {}

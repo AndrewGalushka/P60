@@ -6,4 +6,9 @@
 //  Copyright © 2018 AndrewGalushka. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+
+class MainCoordinator {
+
+}
