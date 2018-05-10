@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D07D21A20A42EF500ADF174 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D07D21820A42EF500ADF174 /* CameraViewController.swift */; };
+		8D07D21B20A42EF500ADF174 /* CameraViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D07D21920A42EF500ADF174 /* CameraViewController.xib */; };
 		8DE3533820A1A46700781ADA /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE3533720A1A46700781ADA /* SettingsViewController.swift */; };
 		8DEAA876206664400068F233 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEAA875206664400068F233 /* AppDelegate.swift */; };
 		8DEAA87B206664400068F233 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8DEAA879206664400068F233 /* Main.storyboard */; };
@@ -24,6 +26,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8D07D21820A42EF500ADF174 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		8D07D21920A42EF500ADF174 /* CameraViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CameraViewController.xib; sourceTree = "<group>"; };
 		8DE3533720A1A46700781ADA /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		8DEAA872206664400068F233 /* P60.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = P60.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DEAA875206664400068F233 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -53,6 +57,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8D07D21720A42EE000ADF174 /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				8D07D21820A42EF500ADF174 /* CameraViewController.swift */,
+				8D07D21920A42EF500ADF174 /* CameraViewController.xib */,
+			);
+			path = Camera;
+			sourceTree = "<group>";
+		};
 		8DE3533B20A1A4C200781ADA /* BaseControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -123,6 +136,7 @@
 		8DEAA88A206676430068F233 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				8D07D21720A42EE000ADF174 /* Camera */,
 				95C773A898EE6078D1B7199E /* MainContentViewController.swift */,
 				8DE3533720A1A46700781ADA /* SettingsViewController.swift */,
 			);
@@ -215,6 +229,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DEAA880206664400068F233 /* LaunchScreen.storyboard in Resources */,
+				8D07D21B20A42EF500ADF174 /* CameraViewController.xib in Resources */,
 				8DEAA87D206664400068F233 /* Assets.xcassets in Resources */,
 				8DEAA87B206664400068F233 /* Main.storyboard in Resources */,
 			);
@@ -232,6 +247,7 @@
 				8DEAA88C2066770A0068F233 /* BaseViewController.swift in Sources */,
 				8DEAA88E206678F60068F233 /* BaseTabBarController.swift in Sources */,
 				95C7729E1C2D047AD25AA266 /* MainContentViewController.swift in Sources */,
+				8D07D21A20A42EF500ADF174 /* CameraViewController.swift in Sources */,
 				8DE3533820A1A46700781ADA /* SettingsViewController.swift in Sources */,
 				95C7799C53030D111EEC5068 /* UIStoryboardExtention.swift in Sources */,
 				95C7779D291198DE196E3B41 /* Identifiable.swift in Sources */,
@@ -375,7 +391,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = YDDE2DY87F;
 				INFOPLIST_FILE = P60/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = AndrewGalushka.com.P60;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -390,7 +408,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = YDDE2DY87F;
 				INFOPLIST_FILE = P60/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = AndrewGalushka.com.P60;
 				PRODUCT_NAME = "$(TARGET_NAME)";

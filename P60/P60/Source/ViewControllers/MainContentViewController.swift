@@ -18,6 +18,8 @@ class MainContentViewController: BaseViewController{
     }
     
     @IBAction func takePhotoButtonTouchUpInside(_ sender: Any) {
+        let cameraVC = CameraViewController()
+        present(cameraVC, animated: true, completion: nil)
     }
 }
 
