@@ -133,10 +133,11 @@ extension CameraViewController {
                 self.rearCamera = camera
                 
                 do {
-                    
-//                    try camera.unlockForConfiguration()
-//                    camera.focusMode = .continuousAutoFocus
-//                    try camera.lockForConfiguration()
+
+                    try camera.lockForConfiguration()
+                    camera.focusMode = .continuousAutoFocus
+                    try camera.unlockForConfiguration()
+
                     
                 } catch {
                     return
