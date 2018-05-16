@@ -50,8 +50,8 @@ class CameraViewController: BaseViewController {
         prepareCamera()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
         displayPreview()
     }
@@ -71,7 +71,6 @@ class CameraViewController: BaseViewController {
             return
         }
         
-        
         if previewLayer != nil {
             previewLayer?.removeFromSuperlayer()
         }
@@ -82,15 +81,16 @@ class CameraViewController: BaseViewController {
         previewLayer.connection?.videoOrientation = .portrait
         
         self.previewLayerContainerView.layer.insertSublayer(previewLayer, at: 0)
+        previewLayer.frame = self.previewLayerContainerView.bounds
     }
     
     @IBAction func backButtonTouchUpInsideActionHandler(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
-}
-
-extension CameraViewController {
     
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
 }
 
 extension CameraViewController {
@@ -189,20 +189,21 @@ extension CameraViewController {
         self.photoOutput = AVCapturePhotoOutput()
         let settings = AVCapturePhotoSettings()
         settings.livePhotoVideoCodecType = .jpeg
-        
-        photoOutput?.capturePhoto(with: settings, delegate: self)
-       
+    
         if let photoOutput = self.photoOutput,
             captureSession.canAddOutput(photoOutput) {
             captureSession.addOutput(photoOutput)
             
-            captureSession.startRunning()
+            photoOutput.capturePhoto(with: settings, delegate: self)
         }
     }
 }
 
 extension CameraViewController: AVCapturePhotoCaptureDelegate {
     
+    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+         captureSession?.startRunning()
+    }
 }
 
 extension CameraViewController: Identifiable {}
