@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-enum CameraPosition {
+fileprivate enum CameraPosition {
     case front
     case rear
 }
@@ -22,7 +22,7 @@ class CameraViewController: BaseViewController {
     var captureSession: AVCaptureSession?
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
 
-    var currentCameraPosition: CameraPosition?
+    fileprivate var currentCameraPosition: CameraPosition?
     var frontCamera: AVCaptureDevice?
     var rearCamera: AVCaptureDevice?
 
@@ -46,7 +46,10 @@ class CameraViewController: BaseViewController {
         
         self.previewLayerContainerView.layer.borderWidth = 3
         self.previewLayerContainerView.layer.borderColor = UIColor.randomColor.cgColor
-        
+
+        let camera = Camera()
+        camera.configureDevices()
+
         prepareCamera()
     }
     
