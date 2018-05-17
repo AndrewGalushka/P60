@@ -6,13 +6,14 @@
 //  Copyright © 2018 AndrewGalushka. All rights reserved.
 //
 
+import UIKit
 import AVFoundation
 
 enum CameraError: Error {
     case captureDeviceInputInitializationError
 }
 
-class Camera {
+class Camera: NSObject {
     
     var captureSession: AVCaptureSession?
     
@@ -23,7 +24,49 @@ class Camera {
     var frontCameraDeviceInput: AVCaptureDeviceInput?
     var rearCameraDeviceInput: AVCaptureDeviceInput?
 
+    var photoOutput: AVCapturePhotoOutput?
+    
+    var previewLayer: AVCaptureVideoPreviewLayer?
+    
     func prepare() {
+        createCaptureSession()
+        configureDevices()
+        configureInputs()
+        
+        if canConnectRearCamera() {
+            
+            if let rearCameraDeviceInput = frontCameraDeviceInput {
+                connectDeviceInput(rearCameraDeviceInput)
+            }
+        } else if canConnectFrontCamera() {
+            
+            if let frontCameraDeviceInput = frontCameraDeviceInput {
+                connectDeviceInput(frontCameraDeviceInput)
+            }
+        }
+        
+        configureOutput()
+        
+        self.captureSession?.startRunning()
+    }
+    
+    func run(on view: UIView) {
+        
+        guard
+            let captureSession = captureSession,
+            captureSession.isRunning
+        else {
+            return
+        }
+        
+        if previewLayer != nil {
+            previewLayer?.removeFromSuperlayer()
+        }
+        
+        self.previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        self.previewLayer?.frame = view.bounds
+        
+        view.layer.addSublayer(self.previewLayer!)
     }
 }
 
@@ -141,5 +184,44 @@ extension Camera {
         return true
     }
 
+    func connectDeviceInput(_ deviceInput: AVCaptureDeviceInput) {
+
+        guard let captureSession = self.captureSession else {
+            return
+        }
+
+        captureSession.addInput(deviceInput)
+    }
+
+    func configureOutput() {
+
+        guard let captureSession = captureSession else {
+            return
+        }
+        
+        self.photoOutput = AVCapturePhotoOutput()
+
+        let capturePhotoSettings = AVCapturePhotoSettings()
+        capturePhotoSettings.livePhotoVideoCodecType = .jpeg
+//        capturePhotoSettings.isHighResolutionPhotoEnabled = true
+        
+        guard
+            let capturePhotoOutput = self.photoOutput,
+            captureSession.canAddOutput(capturePhotoOutput)
+        else {
+            return
+        }
+        
+        captureSession.addOutput(capturePhotoOutput)
+        self.photoOutput?.capturePhoto(with: capturePhotoSettings, delegate: self)
+    }
+
+}
+
+extension Camera: AVCapturePhotoCaptureDelegate {
+
+    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+
+    }
 }
 
