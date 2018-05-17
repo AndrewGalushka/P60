@@ -8,6 +8,10 @@
 
 import AVFoundation
 
+enum CameraError: Error {
+    case captureDeviceInputInitializationError
+}
+
 class Camera {
     
     var captureSession: AVCaptureSession?
@@ -15,7 +19,10 @@ class Camera {
     var frontCameraDevice: AVCaptureDevice?
     var rearCameraDevice: AVCaptureDevice?
     var microphone: AVCaptureDevice?
-    
+
+    var frontCameraDeviceInput: AVCaptureDeviceInput?
+    var rearCameraDeviceInput: AVCaptureDeviceInput?
+
     func prepare() {
     }
 }
@@ -40,7 +47,7 @@ extension Camera {
         
         var frontDualCamera: AVCaptureDevice?
         var frontWideAngleCamera: AVCaptureDevice?
-        
+
         for device in devices {
 
             switch device.deviceType {
@@ -97,9 +104,42 @@ extension Camera {
 
     func configureInputs() {
 
-        if let frontCamera = frontCameraDevice {
+        if let frontCamera = frontCameraDevice,
+           let frontCameraInput = try? AVCaptureDeviceInput(device: frontCamera) {
 
+             self.frontCameraDeviceInput = frontCameraInput
+        }
+
+        if let rearCamera = rearCameraDevice,
+           let rearCameraDeviceInput = try? AVCaptureDeviceInput(device: rearCamera) {
+
+            self.rearCameraDeviceInput = rearCameraDeviceInput
         }
     }
+
+    func canConnectRearCamera() -> Bool {
+        guard
+            let captureSession = self.captureSession,
+            let rearCameraInput = self.rearCameraDeviceInput,
+            captureSession.canAddInput(rearCameraInput)
+        else {
+            return false
+        }
+
+        return true
+    }
+    
+    func canConnectFrontCamera() -> Bool {
+        guard
+            let captureSession = self.captureSession,
+            let frontCameraInput = self.frontCameraDeviceInput,
+            captureSession.canAddInput(frontCameraInput)
+        else {
+                return false
+        }
+        
+        return true
+    }
+
 }
 
