@@ -13,6 +13,11 @@ enum CameraError: Error {
     case captureDeviceInputInitializationError
 }
 
+fileprivate enum CameraPosition {
+    case front
+    case rear
+}
+
 class Camera: NSObject {
     
     var captureSession: AVCaptureSession?
@@ -23,6 +28,7 @@ class Camera: NSObject {
 
     var frontCameraDeviceInput: AVCaptureDeviceInput?
     var rearCameraDeviceInput: AVCaptureDeviceInput?
+    private var cameraPosition: CameraPosition?
 
     var photoOutput: AVCapturePhotoOutput?
     
@@ -35,13 +41,16 @@ class Camera: NSObject {
         
         if canConnectRearCamera() {
             
-            if let rearCameraDeviceInput = frontCameraDeviceInput {
+            if let rearCameraDeviceInput = rearCameraDeviceInput {
                 connectDeviceInput(rearCameraDeviceInput)
+                cameraPosition = .rear
             }
+
         } else if canConnectFrontCamera() {
             
             if let frontCameraDeviceInput = frontCameraDeviceInput {
                 connectDeviceInput(frontCameraDeviceInput)
+                cameraPosition = .front
             }
         }
         
@@ -66,16 +75,54 @@ class Camera: NSObject {
         self.previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         self.previewLayer?.frame = view.bounds
         
-        view.layer.addSublayer(self.previewLayer!)
+        view.layer.addSublayer(previewLayer!)
+    }
+
+    func switchCamera() {
+
+        guard
+            let captureSession = captureSession,
+            let cameraPosition = cameraPosition,
+            let frontCamera = frontCameraDeviceInput,
+            let backCamera = rearCameraDeviceInput
+        else {
+                return
+        }
+
+        let currentDeviceInput: AVCaptureDeviceInput
+        let newDeviceInput: AVCaptureDeviceInput
+        
+        switch cameraPosition {
+        case .front:
+            break
+        case .rear:
+            break
+        }
+
+        self.captureSession?.inputs.contains(<#T##element: AVCaptureInput##AVFoundation.AVCaptureInput#>)
+    }
+    
+    func canSwitchCamera() -> Bool {
+        
+        guard
+            let captureSession = captureSession,
+            let cameraPosition = cameraPosition,
+            let frontCamera = frontCameraDeviceInput,
+            let backCamera = rearCameraDeviceInput
+        else {
+                return false
+        }
+    
+        return true
     }
 }
 
 extension Camera {
-    func createCaptureSession() {
+    private func createCaptureSession() {
         captureSession = AVCaptureSession()
     }
-    
-    func configureDevices() {
+
+    private func configureDevices() {
 
         let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera, .builtInDualCamera, .builtInMicrophone],
                                                                   mediaType: .video,
@@ -145,7 +192,7 @@ extension Camera {
         self.microphone = microphone
     }
 
-    func configureInputs() {
+    private func configureInputs() {
 
         if let frontCamera = frontCameraDevice,
            let frontCameraInput = try? AVCaptureDeviceInput(device: frontCamera) {
@@ -160,7 +207,7 @@ extension Camera {
         }
     }
 
-    func canConnectRearCamera() -> Bool {
+    private func canConnectRearCamera() -> Bool {
         guard
             let captureSession = self.captureSession,
             let rearCameraInput = self.rearCameraDeviceInput,
@@ -171,8 +218,8 @@ extension Camera {
 
         return true
     }
-    
-    func canConnectFrontCamera() -> Bool {
+
+    private func canConnectFrontCamera() -> Bool {
         guard
             let captureSession = self.captureSession,
             let frontCameraInput = self.frontCameraDeviceInput,
@@ -184,7 +231,7 @@ extension Camera {
         return true
     }
 
-    func connectDeviceInput(_ deviceInput: AVCaptureDeviceInput) {
+    private func connectDeviceInput(_ deviceInput: AVCaptureDeviceInput) {
 
         guard let captureSession = self.captureSession else {
             return
@@ -193,7 +240,7 @@ extension Camera {
         captureSession.addInput(deviceInput)
     }
 
-    func configureOutput() {
+    private func configureOutput() {
 
         guard let captureSession = captureSession else {
             return

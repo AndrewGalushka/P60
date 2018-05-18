@@ -11,10 +11,14 @@ import UIKit
 class MainContentViewController: BaseViewController{
 
     @IBOutlet weak var takePhotoButton: UIButton!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpUI()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
     }
     
     @IBAction func takePhotoButtonTouchUpInside(_ sender: Any) {
