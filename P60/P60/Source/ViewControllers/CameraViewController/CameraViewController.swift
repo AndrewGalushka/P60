@@ -45,10 +45,6 @@ class CameraViewController: BaseViewController {
         }
     }
 
-    @IBAction func backButtonTouchUpInsideActionHandler(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
     override var prefersStatusBarHidden: Bool {
         return true
     }
@@ -77,6 +73,21 @@ class CameraViewController: BaseViewController {
                 visualEffectView.removeFromSuperview()
             }
         }
+    }
+    
+    @IBAction func backButtonTouchUpInsideActionHandler(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func switchCameraButtonTouchUpInside(_ sender: Any) {
+
+        guard let previewLayerContainerView = self.previewLayerContainerView else {
+            return
+        }
+        
+        UIView.transition(with: previewLayerContainerView, duration: 0.25, options: UIViewAnimationOptions.transitionFlipFromLeft, animations:nil, completion: nil)
+        self.camera.switchCamera(withDelay: 0.125)
+        
     }
     
 }

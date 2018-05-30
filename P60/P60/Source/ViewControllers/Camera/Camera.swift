@@ -83,8 +83,8 @@ class Camera: NSObject {
         guard
             let captureSession = captureSession,
             let cameraPosition = cameraPosition,
-            let frontCamera = frontCameraDeviceInput,
-            let backCamera = rearCameraDeviceInput
+            let frontCameraInput = frontCameraDeviceInput,
+            let backCameraInput = rearCameraDeviceInput
         else {
                 return
         }
@@ -94,21 +94,35 @@ class Camera: NSObject {
         
         switch cameraPosition {
         case .front:
-            break
+            currentDeviceInput = frontCameraInput
+            newDeviceInput = backCameraInput
+            self.cameraPosition = .rear
         case .rear:
-            break
+            currentDeviceInput = backCameraInput
+            newDeviceInput = frontCameraInput
+            self.cameraPosition = .front
         }
+        
+        captureSession.removeInput(currentDeviceInput)
 
-        self.captureSession?.inputs.contains(<#T##element: AVCaptureInput##AVFoundation.AVCaptureInput#>)
+        if captureSession.canAddInput(newDeviceInput) {
+            captureSession.addInput(newDeviceInput)
+        }
+    }
+    
+    func switchCamera(withDelay delay: Double) {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delay) {
+            self.switchCamera()
+        }
     }
     
     func canSwitchCamera() -> Bool {
         
         guard
-            let captureSession = captureSession,
-            let cameraPosition = cameraPosition,
-            let frontCamera = frontCameraDeviceInput,
-            let backCamera = rearCameraDeviceInput
+            let _ = captureSession,
+            let _ = cameraPosition,
+            let _ = frontCameraDeviceInput,
+            let _ = rearCameraDeviceInput
         else {
                 return false
         }
