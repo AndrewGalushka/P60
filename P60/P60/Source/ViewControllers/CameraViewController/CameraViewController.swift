@@ -33,48 +33,76 @@ class CameraViewController: BaseViewController {
         camera.prepare()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        setVisualEffect(shown: true, animated: true)
+    }
+    
+//    override func viewWillLayoutSubviews() {
+//        <#code#>
+//    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        displayVisualEffectView()
-        
         camera.run(on: previewLayerContainerView)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
-            self?.hideVisualEffectView()
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) { [weak self] in
+            self?.setVisualEffect(shown: false, animated: animated)
         }
     }
 
     override var prefersStatusBarHidden: Bool {
         return true
     }
-
-    func displayVisualEffectView() {
-
-        if visualEffectView != nil {
-            visualEffectView?.removeFromSuperview()
-        }
-
-        visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
-        visualEffectView?.frame = view.bounds
-
-        if let visualEffectView = visualEffectView {
-            view.addSubview(visualEffectView)
-        }
-    }
-
-    func hideVisualEffectView() {
-
-        if let visualEffectView = visualEffectView {
-
-            UIView.animate(withDuration: 2.0, animations: {
-                visualEffectView.effect = nil
-            }) { (finished) in
-                visualEffectView.removeFromSuperview()
-            }
-        }
-    }
     
+    func setVisualEffect(shown isShown: Bool, animated: Bool, duration: TimeInterval = 0.25 ) {
+        
+        let animationDuration = animated ? duration : 0.0
+        
+        func showVisualEffect() {
+            
+            if visualEffectView != nil {
+                visualEffectView?.removeFromSuperview()
+            }
+            
+            visualEffectView = UIVisualEffectView()
+            
+            guard let visualEffectView = self.visualEffectView else {
+                return
+            }
+            
+            visualEffectView.frame = view.bounds
+            visualEffectView.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin, .flexibleBottomMargin]
+
+            view.addSubview(visualEffectView)
+            
+            UIView.animate(withDuration: animationDuration, animations: {
+                visualEffectView.effect = UIBlurEffect(style: UIBlurEffectStyle.extraLight)
+            }, completion: nil)
+        }
+        
+        func hideVisualEffect() {
+            
+            guard let visualEffectView = self.visualEffectView else {
+                return
+            }
+            
+            UIView.animate(withDuration: animationDuration, animations: {
+                visualEffectView.effect = nil
+            }, completion: { (finished) in
+                visualEffectView.removeFromSuperview()
+            })
+        }
+        
+        if isShown {
+            showVisualEffect()
+        } else {
+            hideVisualEffect()
+        }
+     }
+
     @IBAction func backButtonTouchUpInsideActionHandler(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -86,7 +114,7 @@ class CameraViewController: BaseViewController {
         }
         
         UIView.transition(with: previewLayerContainerView, duration: 0.25, options: UIViewAnimationOptions.transitionFlipFromLeft, animations:nil, completion: nil)
-        self.camera.switchCamera(withDelay: 0.125)
+        self.camera.switchCamera(withDelay: 0.2)
         
     }
     
