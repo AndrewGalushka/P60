@@ -78,6 +78,42 @@ class Camera: NSObject {
         view.layer.addSublayer(previewLayer!)
     }
 
+    func torch(level: Float) {
+        
+        guard let cameraPosition = self.cameraPosition else {
+            return
+        }
+        
+        let currentCameraDevice: AVCaptureDevice
+        
+        switch cameraPosition {
+        case .front:
+            guard let frontCamera = self.frontCameraDevice else {
+                return
+            }
+            
+            currentCameraDevice = frontCamera
+        case .rear:
+            guard let backCamera = self.rearCameraDevice else {
+                return
+            }
+            
+            currentCameraDevice = backCamera
+        }
+        
+        if currentCameraDevice.hasTorch {
+            
+            if let _ = try? currentCameraDevice.lockForConfiguration() {
+                
+                if (level <= 0.0) {
+                    currentCameraDevice.torchMode = .off
+                } else {
+                    if let _ = try? currentCameraDevice.setTorchModeOn(level: Float.minimum(level, 1.0)) {}
+                }
+            }
+        }
+    }
+    
     func switchCamera() {
 
         guard

@@ -12,12 +12,11 @@ import AVFoundation
 
 class CameraViewController: BaseViewController {
     
+    @IBOutlet weak var visualEffectView: UIVisualEffectView!
     
     @IBOutlet weak var previewLayerContainerView: UIView!
 
     let camera = Camera()
-
-    var visualEffectView: UIVisualEffectView?
 
     init() {
         super.init(nibName: CameraViewController.identifier, bundle: nil)
@@ -36,19 +35,15 @@ class CameraViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        setVisualEffect(shown: true, animated: true)
+        setVisualEffect(shown: true, animated: true, duration: 0.25)
     }
-    
-//    override func viewWillLayoutSubviews() {
-//        <#code#>
-//    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
         camera.run(on: previewLayerContainerView)
         
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.25) { [weak self] in
             self?.setVisualEffect(shown: false, animated: animated)
         }
     }
@@ -63,24 +58,16 @@ class CameraViewController: BaseViewController {
         
         func showVisualEffect() {
             
-            if visualEffectView != nil {
-                visualEffectView?.removeFromSuperview()
-            }
-            
-            visualEffectView = UIVisualEffectView()
-            
             guard let visualEffectView = self.visualEffectView else {
                 return
             }
-            
-            visualEffectView.frame = view.bounds
-            visualEffectView.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin, .flexibleBottomMargin]
-
-            view.addSubview(visualEffectView)
+        
+            self.visualEffectView.alpha = 1.0
             
             UIView.animate(withDuration: animationDuration, animations: {
                 visualEffectView.effect = UIBlurEffect(style: UIBlurEffectStyle.extraLight)
-            }, completion: nil)
+            },  completion: { (finished) in
+            })
         }
         
         func hideVisualEffect() {
@@ -92,7 +79,7 @@ class CameraViewController: BaseViewController {
             UIView.animate(withDuration: animationDuration, animations: {
                 visualEffectView.effect = nil
             }, completion: { (finished) in
-                visualEffectView.removeFromSuperview()
+                visualEffectView.alpha = 0.0
             })
         }
         
@@ -113,10 +100,28 @@ class CameraViewController: BaseViewController {
             return
         }
         
-        UIView.transition(with: previewLayerContainerView, duration: 0.25, options: UIViewAnimationOptions.transitionFlipFromLeft, animations:nil, completion: nil)
-        self.camera.switchCamera(withDelay: 0.2)
-        
+        UIView.transition(with: previewLayerContainerView, duration: 0.25, options: [.transitionFlipFromLeft, .allowAnimatedContent], animations: {
+            self.camera.switchCamera()
+            self.setVisualEffect(shown: true, animated: true)
+        }) { (finished) in
+            self.setVisualEffect(shown: false, animated: true)
+        }
     }
+    
+    var isFlashlightOn = false
+    
+    @IBAction func flashlightButtonTouchUpInsideActionHandler(_ sender: Any) {
+        
+        if isFlashlightOn {
+            camera.torch(level: 0.0)
+        } else {
+            camera.torch(level: 1.0)
+        }
+        
+        isFlashlightOn = !isFlashlightOn
+    }
+    
+    
     
 }
 
