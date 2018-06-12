@@ -13,26 +13,35 @@ enum CameraError: Error {
     case captureDeviceInputInitializationError
 }
 
-fileprivate enum CameraPosition {
+enum CameraPosition {
     case front
     case rear
 }
 
 class Camera: NSObject {
     
-    var captureSession: AVCaptureSession?
+    private var captureSession: AVCaptureSession?
     
-    var frontCameraDevice: AVCaptureDevice?
-    var rearCameraDevice: AVCaptureDevice?
-    var microphone: AVCaptureDevice?
+    private var frontCameraDevice: AVCaptureDevice?
+    private var rearCameraDevice: AVCaptureDevice?
+    private var microphone: AVCaptureDevice?
 
-    var frontCameraDeviceInput: AVCaptureDeviceInput?
-    var rearCameraDeviceInput: AVCaptureDeviceInput?
-    private var cameraPosition: CameraPosition?
+    private var frontCameraDeviceInput: AVCaptureDeviceInput?
+    private var rearCameraDeviceInput: AVCaptureDeviceInput?
 
-    var photoOutput: AVCapturePhotoOutput?
+    private var photoOutput: AVCapturePhotoOutput?
+    private var previewLayer: AVCaptureVideoPreviewLayer?
     
-    var previewLayer: AVCaptureVideoPreviewLayer?
+    var cameraPosition: CameraPosition? {
+        
+        didSet {
+            if let position = oldValue {
+                self.delegate?.camera(self, didChangedPosition: position)
+            }
+        }
+    }
+    
+    var delegate: CameraDelegate?
     
     func prepare() {
         createCaptureSession()
@@ -312,13 +321,12 @@ extension Camera {
         captureSession.addOutput(capturePhotoOutput)
         self.photoOutput?.capturePhoto(with: capturePhotoSettings, delegate: self)
     }
-
 }
 
 extension Camera: AVCapturePhotoCaptureDelegate {
 
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
-
+        
     }
 }
 

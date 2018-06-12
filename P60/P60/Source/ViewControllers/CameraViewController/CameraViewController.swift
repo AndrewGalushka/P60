@@ -13,9 +13,10 @@ import AVFoundation
 class CameraViewController: BaseViewController {
     
     @IBOutlet weak var visualEffectView: UIVisualEffectView!
-    
     @IBOutlet weak var previewLayerContainerView: UIView!
-
+    
+    @IBOutlet weak var flashlightButton: UIButton!
+    
     let camera = Camera()
 
     init() {
@@ -28,7 +29,9 @@ class CameraViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        camera.delegate = self
+        
         camera.prepare()
     }
 
@@ -40,7 +43,7 @@ class CameraViewController: BaseViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
+        
         camera.run(on: previewLayerContainerView)
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.25) { [weak self] in
@@ -99,7 +102,7 @@ class CameraViewController: BaseViewController {
         guard let previewLayerContainerView = self.previewLayerContainerView else {
             return
         }
-        
+
         UIView.transition(with: previewLayerContainerView, duration: 0.25, options: [.transitionFlipFromLeft, .allowAnimatedContent], animations: {
             self.camera.switchCamera()
             self.setVisualEffect(shown: true, animated: true)
@@ -120,10 +123,20 @@ class CameraViewController: BaseViewController {
         
         isFlashlightOn = !isFlashlightOn
     }
-    
-    
-    
 }
 
+
+extension CameraViewController: CameraDelegate {
+    
+    func camera(_: Camera, didChangedPosition position: CameraPosition) {
+        
+        switch position {
+        case .front:
+            self.flashlightButton.isHidden = false
+        case .rear:
+            self.flashlightButton.isHidden = true
+        }
+    }
+}
 
 extension CameraViewController: Identifiable {}
