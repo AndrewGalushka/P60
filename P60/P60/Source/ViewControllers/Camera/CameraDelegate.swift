@@ -7,3 +7,11 @@
 //
 
 import Foundation
+
+protocol CameraDelegate {
+    func camera(_: Camera, didChangedPosition position: CameraPosition)
+}
+
+extension CameraDelegate {
+    func camera(_: Camera, didChangedPosition position: CameraPosition) {}
+}
