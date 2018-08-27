@@ -32,7 +32,9 @@ class CameraViewController: BaseViewController {
         
         camera.delegate = self
         
-        camera.prepare()
+        DispatchQueue.global().async { [weak self] in
+            self?.camera.prepare()
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -122,6 +124,10 @@ class CameraViewController: BaseViewController {
         }
         
         isFlashlightOn = !isFlashlightOn
+    }
+    
+    @IBAction func takePhotoButtonTouchUpInside(_ sender: Any) {
+        
     }
 }
 

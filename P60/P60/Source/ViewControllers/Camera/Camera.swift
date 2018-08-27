@@ -32,6 +32,9 @@ class Camera: NSObject {
     private var photoOutput: AVCapturePhotoOutput?
     private var previewLayer: AVCaptureVideoPreviewLayer?
     
+    private var isTakePhoto = false
+    private var takePhotoCompletionHandler: ((_: UIImage?) -> Void)?
+    
     var cameraPosition: CameraPosition? {
         
         didSet {
@@ -173,6 +176,11 @@ class Camera: NSObject {
         }
     
         return true
+    }
+    
+    func takePhoto(copletionHandler: @escaping (_: UIImage?) -> Void) {
+        self.takePhotoCompletionHandler = copletionHandler
+        self.isTakePhoto = true
     }
 }
 
@@ -326,6 +334,17 @@ extension Camera {
 extension Camera: AVCapturePhotoCaptureDelegate {
 
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+        
+        if isTakePhoto {
+            
+            if let pixelBuffer = photo.pixelBuffer {
+                let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
+                let image = UIImage(ciImage: ciImage)
+                self.takePhotoCompletionHandler?(image)
+            }
+        }
+        
+        
         
     }
 }
