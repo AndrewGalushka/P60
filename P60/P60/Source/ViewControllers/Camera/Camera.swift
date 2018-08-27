@@ -30,7 +30,7 @@ class Camera: NSObject {
     private var rearCameraDeviceInput: AVCaptureDeviceInput?
 
     private var photoOutput: AVCapturePhotoOutput?
-    private var previewLayer: AVCaptureVideoPreviewLayer?
+    private(set) var previewLayer: AVCaptureVideoPreviewLayer?
     
     private var isTakePhoto = false
     private var takePhotoCompletionHandler: ((_: UIImage?) -> Void)?
@@ -74,8 +74,7 @@ class Camera: NSObject {
     func run(on view: UIView) {
         
         guard
-            let captureSession = captureSession,
-            captureSession.isRunning
+            let captureSession = captureSession
         else {
             return
         }
@@ -181,6 +180,8 @@ class Camera: NSObject {
     func takePhoto(copletionHandler: @escaping (_: UIImage?) -> Void) {
         self.takePhotoCompletionHandler = copletionHandler
         self.isTakePhoto = true
+        
+        self.photoOutput?.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
     }
 }
 
@@ -315,10 +316,6 @@ extension Camera {
         
         self.photoOutput = AVCapturePhotoOutput()
 
-        let capturePhotoSettings = AVCapturePhotoSettings()
-        capturePhotoSettings.livePhotoVideoCodecType = .jpeg
-//        capturePhotoSettings.isHighResolutionPhotoEnabled = true
-        
         guard
             let capturePhotoOutput = self.photoOutput,
             captureSession.canAddOutput(capturePhotoOutput)
@@ -327,7 +324,6 @@ extension Camera {
         }
         
         captureSession.addOutput(capturePhotoOutput)
-        self.photoOutput?.capturePhoto(with: capturePhotoSettings, delegate: self)
     }
 }
 
@@ -337,15 +333,13 @@ extension Camera: AVCapturePhotoCaptureDelegate {
         
         if isTakePhoto {
             
-            if let pixelBuffer = photo.pixelBuffer {
-                let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
-                let image = UIImage(ciImage: ciImage)
+            if let imageData = photo.fileDataRepresentation(), let image = UIImage(data: imageData){
+                
                 self.takePhotoCompletionHandler?(image)
             }
         }
         
-        
-        
+        isTakePhoto = false
     }
 }
 

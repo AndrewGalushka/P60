@@ -8,8 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		8D07D21A20A42EF500ADF174 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D07D21820A42EF500ADF174 /* CameraViewController.swift */; };
-		8D07D21B20A42EF500ADF174 /* CameraViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D07D21920A42EF500ADF174 /* CameraViewController.xib */; };
 		8D0C640820AC693900D67C8D /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0C640720AC693900D67C8D /* Camera.swift */; };
+		8D5F2A7D21345AAB00C87856 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D5F2A7C21345AAB00C87856 /* Camera.storyboard */; };
+		8D5F2A7F21346C1300C87856 /* TakenPhotoPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5F2A7E21346C1300C87856 /* TakenPhotoPreviewViewController.swift */; };
 		8D63C3B820D01778002B203D /* CameraDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D63C3B720D01778002B203D /* CameraDelegate.swift */; };
 		8D63C3D920D01FAC002B203D /* SF-Pro-Display-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8D63C3BB20D01FAC002B203D /* SF-Pro-Display-Thin.otf */; };
 		8D63C3DA20D01FAC002B203D /* SF-Pro-Display-SemiboldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8D63C3BC20D01FAC002B203D /* SF-Pro-Display-SemiboldItalic.otf */; };
@@ -60,8 +61,9 @@
 
 /* Begin PBXFileReference section */
 		8D07D21820A42EF500ADF174 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
-		8D07D21920A42EF500ADF174 /* CameraViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CameraViewController.xib; sourceTree = "<group>"; };
 		8D0C640720AC693900D67C8D /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
+		8D5F2A7C21345AAB00C87856 /* Camera.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Camera.storyboard; sourceTree = "<group>"; };
+		8D5F2A7E21346C1300C87856 /* TakenPhotoPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakenPhotoPreviewViewController.swift; sourceTree = "<group>"; };
 		8D63C3B720D01778002B203D /* CameraDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraDelegate.swift; sourceTree = "<group>"; };
 		8D63C3BB20D01FAC002B203D /* SF-Pro-Display-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Thin.otf"; sourceTree = "<group>"; };
 		8D63C3BC20D01FAC002B203D /* SF-Pro-Display-SemiboldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-SemiboldItalic.otf"; sourceTree = "<group>"; };
@@ -136,7 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				8D07D21820A42EF500ADF174 /* CameraViewController.swift */,
-				8D07D21920A42EF500ADF174 /* CameraViewController.xib */,
+				8D5F2A7E21346C1300C87856 /* TakenPhotoPreviewViewController.swift */,
 			);
 			path = CameraViewController;
 			sourceTree = "<group>";
@@ -248,6 +250,7 @@
 			children = (
 				8D63C3B920D01F8E002B203D /* Fonts */,
 				8DEAA879206664400068F233 /* Main.storyboard */,
+				8D5F2A7C21345AAB00C87856 /* Camera.storyboard */,
 				8DEAA87E206664400068F233 /* LaunchScreen.storyboard */,
 				8DEAA87C206664400068F233 /* Assets.xcassets */,
 				8DEAA881206664400068F233 /* Info.plist */,
@@ -372,10 +375,10 @@
 				8D63C3E420D01FAC002B203D /* SF-Pro-Display-Semibold.otf in Resources */,
 				8D63C3F320D01FAC002B203D /* SF-Pro-Text-LightItalic.otf in Resources */,
 				8D63C3F520D01FAC002B203D /* SF-Pro-Display-BoldItalic.otf in Resources */,
-				8D07D21B20A42EF500ADF174 /* CameraViewController.xib in Resources */,
 				8D63C3E220D01FAC002B203D /* SF-Pro-Display-Heavy.otf in Resources */,
 				8D63C3DF20D01FAC002B203D /* SF-Pro-Text-MediumItalic.otf in Resources */,
 				8DEAA87D206664400068F233 /* Assets.xcassets in Resources */,
+				8D5F2A7D21345AAB00C87856 /* Camera.storyboard in Resources */,
 				8D63C3F020D01FAC002B203D /* SF-Pro-Text-Semibold.otf in Resources */,
 				8D63C3E520D01FAC002B203D /* SF-Pro-Text-Regular.otf in Resources */,
 				8D63C3DE20D01FAC002B203D /* SF-Pro-Display-Regular.otf in Resources */,
@@ -402,6 +405,7 @@
 				8DEAA88E206678F60068F233 /* BaseTabBarController.swift in Sources */,
 				95C7729E1C2D047AD25AA266 /* MainContentViewController.swift in Sources */,
 				8D07D21A20A42EF500ADF174 /* CameraViewController.swift in Sources */,
+				8D5F2A7F21346C1300C87856 /* TakenPhotoPreviewViewController.swift in Sources */,
 				8DE3533820A1A46700781ADA /* SettingsViewController.swift in Sources */,
 				95C7799C53030D111EEC5068 /* UIStoryboardExtention.swift in Sources */,
 				95C7779D291198DE196E3B41 /* Identifiable.swift in Sources */,
