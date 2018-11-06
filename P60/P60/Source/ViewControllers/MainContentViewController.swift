@@ -14,7 +14,7 @@ class MainContentViewController: BaseViewController{
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setUpUI()
+        setUpUI()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -23,6 +23,7 @@ class MainContentViewController: BaseViewController{
     
     @IBAction func takePhotoButtonTouchUpInside(_ sender: Any) {
         let cameraVC = UIStoryboard.init(name: "Camera", bundle: nil).instantiateViewController(withIdentifier: CameraViewController.identifier) as! CameraViewController
+        
         present(cameraVC, animated: true, completion: nil)
     }
 }

@@ -24,19 +24,15 @@ class CameraViewController: BaseViewController {
     
     let camera = Camera()
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
+    // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        camera.delegate = self
-        self.camera.prepare()
-        camera.run(on: previewLayerContainerView)
-        
         bottomInterfaceVisualEffectView.layer.cornerRadius = 20.0
         topInterfaceVisualEffectView.layer.cornerRadius = 20.0
+        
+        setupCamera()
     }
 
     override func viewDidLayoutSubviews() {
@@ -52,6 +48,19 @@ class CameraViewController: BaseViewController {
         view.setNeedsLayout()
         self.view.layoutIfNeeded()
     }
+    
+    // MARK: - Methods(Private)
+    
+    private func setupCamera() {
+        DispatchQueue.global().async { [weak self] in
+            guard let storngSelf = self else { return }
+            storngSelf.camera.delegate = self
+            storngSelf.camera.prepare()
+            storngSelf.camera.run(on: storngSelf.previewLayerContainerView)
+        }
+    }
+    
+    // MARK: - Actions
     
     @IBAction func backButtonTouchUpInsideActionHandler(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)

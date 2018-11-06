@@ -79,14 +79,35 @@ class Camera: NSObject {
             return
         }
         
-        if previewLayer != nil {
-            previewLayer?.removeFromSuperlayer()
+        let isMainThread = Thread.isMainThread
+        
+        if self.previewLayer != nil {
+            
+            if isMainThread {
+                self.previewLayer?.removeFromSuperlayer()
+            } else {
+                DispatchQueue.main.async { [weak self] in
+                    guard let strongSelf = self else { return }
+                    strongSelf.previewLayer?.removeFromSuperlayer()
+                }
+            }
+            
         }
         
-        self.previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        self.previewLayer?.frame = view.bounds
+        let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         
-        view.layer.addSublayer(previewLayer!)
+        if (isMainThread) {
+            previewLayer.frame = view.bounds
+            self.previewLayer = previewLayer
+            view.layer.addSublayer(previewLayer)
+        } else {
+            DispatchQueue.main.async { [weak self] in
+                guard let strongSelf = self else { return }
+                previewLayer.frame = view.bounds
+                strongSelf.previewLayer = previewLayer
+                view.layer.addSublayer(previewLayer)
+            }
+        }
     }
 
     func torch(level: Float) {
