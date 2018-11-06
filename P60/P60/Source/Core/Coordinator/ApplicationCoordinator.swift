@@ -21,10 +21,10 @@ class ApplicationCoordinator: Coordinator {
     }
 
     func start() {
-        let mainStoryBoard = UIStoryboard.init(.main)
+        let mainStoryboard = UIStoryboard.init(.main)
 
-        let mainContentViewController: MainContentViewController = mainStoryBoard.instantiateViewController()
-        let settingsViewController: SettingsViewController = mainStoryBoard.instantiateViewController()
+        let mainContentViewController: MainContentViewController = mainStoryboard.instantiateViewController()
+        let settingsViewController: SettingsViewController = mainStoryboard.instantiateViewController()
 
         let mainContentViewControllerTabBarItem = UITabBarItem(title: nil, image: UIImage(named: "TabBarCameraIcon"), selectedImage: nil)
         let settingsViewControllerTabBarItem = UITabBarItem(title: nil, image: UIImage(named: "TabBarSettingsIcon"), selectedImage: nil)
